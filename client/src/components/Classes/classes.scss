@@ -1,0 +1,48 @@
+li {
+    display: flex;
+    flex-direction: column-reverse;
+    margin: 3px 0;
+    justify-content: space-evenly;
+    background-color: #FFFFFF;
+    padding: 20px;
+}
+
+.avatar {
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 30px;
+}
+
+.mini-container {
+    width: 100%;
+    margin-right: 20px;
+}
+
+#teacher{
+    display: flex;
+}
+
+#course {
+    display: flex;
+}
+
+#time {
+    text-align: right;
+}
+
+
+
+@media only screen and (min-width: 799px) {
+    li{
+        flex-direction: row;
+        .mini-container {
+            width: 30%;
+        }
+        #course {
+            width: 500px;
+        }
+        #time {
+            text-align: center;
+        }
+    }
+}
