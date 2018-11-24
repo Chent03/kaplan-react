@@ -1,0 +1,18 @@
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t chent03/react-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run chent03/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t chent03/kaplan-client ./client
+  - docker build -t chent03/kaplan-server .
+  - docker build -t chent03/kaplan-nginx ./nginx
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  - docker push chent03/kaplan-client
+  - docker push chent03/kaplan-server
+  - docker push chent03/kaplan-nginx
