@@ -10,7 +10,7 @@ This is for Kaplan only:
         step 2: npm run test
     
     To run the project:
-        step 1: Download docker
+        step 1: Have docker installed
         step 2: cd into project folder
         step 3: docker-compose up --build
         step 4: visit localhost:4000
