@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import './App.scss';
 import Lessons from '../components/Lessons/Lessons';
@@ -10,7 +10,10 @@ class App extends Component {
         return (
             <div>
                 <BrowserRouter>
-                    <Route exact path="/" component={Lessons}/>
+                    <Switch>
+                        <Route exact path="/" component={Lessons}/>
+                        <Redirect to="/"/>
+                    </Switch>
                 </BrowserRouter>
             </div>
         )

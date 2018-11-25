@@ -1,11 +1,12 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import Root from '../../Root';
-import Lessons from '../Lessons/Lessons';
+import {Lessons} from '../Lessons/Lessons';
 import Schedule from '../Schedule/schedule';
 import Classes from '../Classes/classes';
-
+import Spinner from '../UI/Spinner/Spinner';
+import ErrorMessage from '../UI/ErrorMessage/ErrorMessage';
 
 let wrapper;
 const mockSchedule = [
@@ -32,24 +33,77 @@ const mockSchedule = [
     ]
 ]
 
-beforeEach(() => {
-    const initState = {
-        class: {
-            schedule: mockSchedule
-        }
-    };
-
-    wrapper = mount(
-        <Root initialState={initState}>
-            <Lessons />
-        </Root>
-    )
+describe('Lessons fetching', () => {
+    beforeEach(() => {
+        const initState = {
+            class: {
+                loading: true,
+                errorMessage: null,
+                schedule: [],
+                fetchLessons: () => {}
+            }
+        };
+    
+        wrapper = shallow(
+            <Lessons {...initState.class}/>
+        )
+    })
+    
+    it('shows a spinner when fetching data', () => {
+        expect(wrapper.find(Spinner).length).toEqual(1);
+    })
+    
 })
 
-it('shows one day of classes', () => {
-    expect(wrapper.find(Schedule).length).toEqual(1);
+describe('Lessons failed', () => {
+    beforeEach(() => {
+        const initState = {
+            class: {
+                loading: false,
+                errorMessage: true,
+                schedule: [],
+                fetchLessons: () => {}
+            }
+        };
+    
+        wrapper = shallow(
+            <Lessons {...initState.class}/>
+            
+        )
+    })
+    
+    it('shows a error message when an error occurs', () => {
+        expect(wrapper.find(ErrorMessage).length).toEqual(1);
+    })
+    
 })
 
-it('shows two classes', () => {
-    expect(wrapper.find(Classes).length).toEqual(2);
+describe('Lessons loaded', () => {
+    beforeEach(() => {
+        const initState = {
+            class: {
+                loading: false,
+                error: false,
+                schedule: mockSchedule,
+                fetchLessons: () => {}
+            }
+        };
+    
+        wrapper = mount(
+            <Lessons {...initState.class}/> 
+        )
+    })
+
+    afterEach(() => {
+        wrapper.unmount();
+    })
+
+    it('shows one day of classes', () => {
+        expect(wrapper.find(Schedule).length).toEqual(1);
+    })
+    
+    it('shows two classes', () => {
+        expect(wrapper.find(Classes).length).toEqual(2);
+    })
+    
 })

@@ -3,16 +3,25 @@ import { connect }  from 'react-redux';
 import { fetchLessons } from '../../store/actions';
 
 import Schedule from '../Schedule/schedule';
+import Spinner from '../UI/Spinner/Spinner';
+import ErrorMessage from '../UI/ErrorMessage/ErrorMessage';
 
-class Lessons extends Component {
+export class Lessons extends Component {
     componentDidMount() {
         this.props.fetchLessons();
     }
 
     renderDates = () => {
-        return this.props.schedule.map((item) => {
-            return <Schedule key={item[0]} classes={item[1]} date={item[0]}/>
-        })
+        if(this.props.loading) {
+            return <Spinner />
+        } else if(this.props.errorMessage) {
+            return <ErrorMessage />
+        } else {
+            return this.props.schedule.map((item) => {
+                return <Schedule key={item[0]} classes={item[1]} date={item[0]}/>
+            })
+        }
+
     }
 
     render() {
@@ -26,7 +35,9 @@ class Lessons extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        schedule: state.class.schedule
+        loading: state.class.loading,
+        schedule: state.class.schedule,
+        errorMessage: state.class.errorMessage
     }
 }
 

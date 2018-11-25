@@ -35,6 +35,11 @@ beforeEach(() => {
         <Schedule date={mockSchedule[0]} classes={mockSchedule[1]}/>
     )
 })
+
+afterEach(() => {
+    wrapper.unmount();
+})
+
 it('shows the correct date stamp', () => {
     expect(wrapper.render().text()).toContain(moment(mockSchedule[0]).format("ddd, MMMM D, YYYY"))
 })

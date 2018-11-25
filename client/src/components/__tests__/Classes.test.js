@@ -22,6 +22,10 @@ beforeEach(() => {
     )
 })
 
+afterEach(() => {
+    wrapper.unmount();
+})
+
 it('contains title', () => {
     expect(wrapper.render().text()).toContain(mockClass.title)
 })

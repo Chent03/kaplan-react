@@ -3,7 +3,7 @@ import reduxThunk from 'redux-thunk';
 import moxios from 'moxios';
 
 import * as actions from '../index';
-import { FETCH_LESSONS } from '../types';
+import { FETCH_LESSONS, FETCH_LESSONS_START } from '../types';
 
 const middlewares = [reduxThunk];
 const mockStore = configureMockStore(middlewares);
@@ -43,6 +43,7 @@ describe('fetchLessons', () => {
           });
 
         const expectedAction = [
+            { type: FETCH_LESSONS_START },
             { type: FETCH_LESSONS, payload: mockData}
         ];
 
