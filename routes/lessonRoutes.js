@@ -10,10 +10,11 @@ module.exports = (app) => {
     app.get('/api/lessons', async (req, res) => {
         try{
             let data = await readFile(path.resolve(__dirname, "../channel.json"), 'utf8');
-            data = _.groupBy(JSON.parse(data), (lesson) => moment(lesson.time).format("YYYY-MM-DD"))
-            data = _.toPairs(data);
-            data = _.sortBy(data, (r) => r[0]);
-            res.send(data)
+            data = _.chain(JSON.parse(data))
+                    .groupBy((lesson) => moment(lesson.time).format("YYYY-MM-DD"))
+                    .toPairs()
+                    .sortBy((r) => r[0])
+            res.status(200).send(data)
         } catch(err) {
             res.status(422).send('Cannot find lessons')
         }
