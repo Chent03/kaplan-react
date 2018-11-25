@@ -6,14 +6,14 @@ const classes = ({title, description, instructorName, instructorPhotoUrl, subjec
     return (
         <li>
             <div className="mini-container" id="course">
-                <img src={subjectPhotoUrl} alt="" className="avatar"/>
+                <img src={subjectPhotoUrl} alt="Subject Logo" className="avatar"/>
                 <div className="content">
                     <h4 className="title">{title}</h4>
                     <p id="description">{description}</p>
                 </div>
             </div>
             <div className="mini-container" id="teacher">
-                <img src={instructorPhotoUrl} alt="" className="avatar"/>
+                <img src={instructorPhotoUrl} alt="Instructor Avatar" className="avatar"/>
                 <h4>{instructorName}</h4>
             </div>
             <div className="mini-container">
